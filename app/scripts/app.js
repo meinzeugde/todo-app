@@ -1,15 +1,7 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name todoAppApp
- * @description
- * # todoAppApp
- *
- * Main module of the application.
- */
 angular
-  .module('todoAppApp', [
+  .module('todoApp', [
     'ngAnimate',
     'ngAria',
     'ngResource',
