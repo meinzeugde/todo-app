@@ -19,7 +19,11 @@
 
   <div>
     <ul>
-      <li ng-repeat="entry in localData.todoEntries">{{entry.description}}</li>
+      <li ng-repeat="entry in localData.todoEntries">
+        {{entry.description}}
+        <i class="glyphicon glyphicon-edit" ng-click="localFunctions.editTodoEntry(entry)"></i>
+        <i class="glyphicon glyphicon-remove" ng-click="localFunctions.removeTodoEntry(entry)"></i>
+      </li>
     </ul>
   </div>
 </div>
