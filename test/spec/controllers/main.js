@@ -17,5 +17,5 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  /* todo-matteo: write some tests */
+  /* todo-matteo: write some tests, otherwise grunt test will fail */
 });

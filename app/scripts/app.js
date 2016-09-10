@@ -7,9 +7,11 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'LocalForageModule',
+    'toastr'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -24,4 +26,6 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }])
+
+;
