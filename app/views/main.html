@@ -2,19 +2,47 @@
 
 <div id="main_view">
   <div class="jumbotron">
-    <h1>Go out and do something!</h1>
+    <div class="row">
+      <h1>Go out and do something!</h1>
 
-    <form>
-      <div class="form-group">
-        <label for="todo_entry">create a todo-entry</label>
-        <input type="text" class="form-control" id="todo_entry"
-               placeholder="activity/reminder (prepend words with # or @ to tag them)"
-               ng-model="localData.newEntry.description">
-      </div>
+      <form>
+        <div class="form-group">
+          <label class="sr-only" for="todo_entry">create a todo-entry</label>
+          <input type="text" class="form-control" id="todo_entry"
+                 placeholder="activity/reminder (prepend words with # or @ to tag them)"
+                 ng-model="localData.newEntry.description"
+                 has-focus="localData.focusTodoEntry">
+        </div>
 
-      <button type="submit" class="btn btn-default"
-              ng-click="localFunctions.saveTodoEntry(localData.newEntry)">Submit</button>
-    </form>
+        <div class="well" ng-show="localData.newEntry.description | isNotEmpty">
+          <div class="row">
+            <div class="form-group">
+              <label class="sr-only" for="todo_date">date</label>
+              <input type="text" class="form-control col-sm-3" id="todo_date"
+                     placeholder="specify when"
+                     ng-model="localData.newEntry.date">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="todo_location">location</label>
+              <input type="text" class="form-control col-sm-3" id="todo_location"
+                     placeholder="specify where"
+                     ng-model="localData.newEntry.location">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="todo_urgency">urgency</label>
+              <input type="text" class="form-control col-sm-3" id="todo_urgency"
+                     placeholder="specify urgency"
+                     ng-model="localData.newEntry.urgency">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-default"
+                ng-click="localFunctions.saveTodoEntry(localData.newEntry)">Submit</button>
+        <button type="submit" class="btn btn-default" ng-if="localData.newEntry.id"
+                ng-click="localFunctions.cancelTodoEntry(localData.newEntry)">Cancel</button>
+      </form>
+    </div>
   </div>
 
   <div>
