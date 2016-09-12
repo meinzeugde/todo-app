@@ -52,15 +52,32 @@
     </div>
   </div>
 
-  <div>
-    <ul class="list-group">
-      <li class="list-group-item todo-entry"
-          ng-class="'list-group-item-'+selectionData.degreesOfUrgency[entry.urgency].class"
-          ng-repeat="entry in localData.todoEntries">
-        <input class="checkbox checkbox-inline" type="checkbox" ng-model="entry.isComplete" ng-click="localFunctions.saveTodoEntry(entry)" />
-        <span ng-click="localFunctions.editTodoEntry(entry)">{{entry.description}}</span>
-        <i class="glyphicon glyphicon-remove remove-entry" ng-click="localFunctions.removeTodoEntry(entry)"></i>
-      </li>
-    </ul>
-  </div>
+  <ul class="list-group">
+    <li class="list-group-item todo-entry"
+        ng-class="'list-group-item-'+selectionData.degreesOfUrgency[entry.urgency].class"
+        ng-repeat="entry in localData.todoEntries">
+      <div class="row">
+        <div class="col-sm-5">
+          <input class="checkbox checkbox-inline hidden-xs" type="checkbox" ng-model="entry.isComplete" ng-click="localFunctions.saveTodoEntry(entry)" />
+          <span class="title" ng-click="localFunctions.editTodoEntry(entry)">{{entry.description}}</span>
+        </div>
+        <div class="col-sm-3">
+          <span ng-if="entry.date"><i class="glyphicon glyphicon-time"></i> {{entry.date}}</span>
+        </div>
+        <div class="col-sm-3">
+          <span ng-if="entry.location"><i class="glyphicon glyphicon-map-marker"></i> {{entry.location}}</span>
+        </div>
+        <div class="hidden-xs">
+          <div class="col-sm-1 action-buttons">
+            <i class="glyphicon glyphicon-remove pull-right" ng-click="localFunctions.removeTodoEntry(entry)"></i>
+          </div>
+        </div>
+        <div class="visible-xs col-sm-12">
+          <btn ng-if="entry.isComplete" class="btn btn-success pull-left" ng-click="localFunctions.switchTodoCompletion(entry,true)">complete</btn>
+          <btn ng-if="!entry.isComplete" class="btn btn-default pull-left" ng-click="localFunctions.switchTodoCompletion(entry,false)">in progress</btn>
+          <btn class="btn btn-danger pull-right">remove</btn>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

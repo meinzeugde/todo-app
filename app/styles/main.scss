@@ -83,18 +83,21 @@ body {
 // FORM
 
 // LIST
-#main_view .todo-entry > span {
-  cursor: pointer;
-  display: inline-block;
-  margin-left: 1em;
+#main_view .todo-entry .checkbox {
+  margin: 0 1em 0 0 !important;
+  float:left;
 }
 
-#main_view .todo-entry > i.remove-entry {
-  float: right;
+#main_view .todo-entry .title {
+  cursor: pointer;
+  display: inline;
+}
+
+#main_view .todo-entry .action-buttons i {
   display: none;
 }
 
-#main_view .todo-entry:hover > i.remove-entry {
+#main_view .todo-entry:hover .action-buttons i  {
   display: inherit;
 }
 

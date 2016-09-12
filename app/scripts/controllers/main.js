@@ -73,6 +73,11 @@ angular.module('todoApp')
           $scope.localFunctions.resetTodoEntry();
         };
 
+        $scope.localFunctions.switchTodoCompletion = function(entry,completion) {
+          entry.isComplete = !entry.isComplete;
+          $scope.localFunctions.saveTodoEntry(entry);
+        };
+
         /**
          * INITIALIZATION
          **/
