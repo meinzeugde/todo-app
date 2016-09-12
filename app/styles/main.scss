@@ -93,11 +93,11 @@ body {
   display: inline;
 }
 
-#main_view .todo-entry .action-buttons i {
+#main_view .todo-entry .action-buttons button {
   display: none;
 }
 
-#main_view .todo-entry:hover .action-buttons i  {
+#main_view .todo-entry:hover .action-buttons button  {
   display: inherit;
 }
 

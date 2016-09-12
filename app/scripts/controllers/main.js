@@ -21,13 +21,29 @@ angular.module('todoApp')
             {id: 3, title: 'urgent', class: 'danger'}
           ]
         };
+        $scope.filterData = {
+          tags: []
+        };
 
         /**
          * FUNCTIONS
          **/
+        $scope.localFunctions.setFilterTags = function(entries) {
+          $scope.filterData.tags = [];
+          _.each(entries,function(entry) {
+            if(typeof entry.description == 'string') {
+              var hashArr = entry.description.match(/(@|#)(\w+)/g);
+              if(Array.isArray(hashArr)) {
+                $scope.filterData.tags = _.union($scope.filterData.tags,hashArr);
+              }
+            }
+          });
+        };
+
         $scope.localFunctions.loadTodoList = function() {
           TodoEntry.all().then(function(entries) {
             $scope.localData.todoEntries = entries;
+            $scope.localFunctions.setFilterTags(entries);
           })
         };
 
@@ -42,6 +58,7 @@ angular.module('todoApp')
         $scope.localFunctions.saveTodoEntry = function(todoEntry) {
           TodoEntry.save(todoEntry).then(function(entries) {
             $scope.localData.todoEntries = entries;
+            $scope.localFunctions.setFilterTags(entries);
             toastr.success('todo entry saved','success');
           },function(error) {
             toastr.error(error,"error");
@@ -53,6 +70,7 @@ angular.module('todoApp')
         $scope.localFunctions.removeTodoEntry = function(todoEntry) {
           TodoEntry.remove(todoEntry).then(function(entries) {
             $scope.localData.todoEntries = entries;
+            $scope.localFunctions.setFilterTags(entries);
             if($scope.localData.newEntry.id == todoEntry.id) {
               $scope.localData.newEntry = {};
             }

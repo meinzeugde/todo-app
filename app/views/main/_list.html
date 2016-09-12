@@ -1,0 +1,30 @@
+<ul class="list-group">
+  <li class="list-group-item todo-entry"
+      ng-class="'list-group-item-'+selectionData.degreesOfUrgency[entry.urgency].class"
+      ng-repeat="entry in localData.todoEntries">
+    <div class="row">
+      <div class="col-sm-6">
+        <input class="checkbox checkbox-inline hidden-xs" type="checkbox" ng-model="entry.isComplete" ng-click="localFunctions.saveTodoEntry(entry)" />
+        <span class="title" ng-bind-html="entry.description | markTags"></span>
+      </div>
+      <div class="col-sm-2">
+        <span ng-if="entry.date"><i class="glyphicon glyphicon-time"></i> {{entry.date}}</span>
+      </div>
+      <div class="col-sm-2">
+        <span ng-if="entry.location"><i class="glyphicon glyphicon-map-marker"></i> {{entry.location}}</span>
+      </div>
+      <div class="hidden-xs">
+        <div class="col-sm-2 action-buttons">
+          <button class="pull-right" ng-click="localFunctions.editTodoEntry(entry)"><i class="glyphicon glyphicon-pencil"></i></button>
+          <button class="pull-right" ng-click="localFunctions.removeTodoEntry(entry)"><i class="glyphicon glyphicon-remove"></i></button>
+        </div>
+      </div>
+      <div class="visible-xs col-sm-12">
+        <btn ng-if="entry.isComplete" class="btn btn-success pull-left" ng-click="localFunctions.switchTodoCompletion(entry,true)">complete</btn>
+        <btn ng-if="!entry.isComplete" class="btn btn-default pull-left" ng-click="localFunctions.switchTodoCompletion(entry,false)">in progress</btn>
+        <btn class="btn btn-primary pull-right" ng-click="localFunctions.editTodoEntry(entry)">edit</btn>
+        <btn class="btn btn-danger pull-right" ng-click="localFunctions.removeTodoEntry(entry)">remove</btn>
+      </div>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,13 @@
+<!-- access $scope in dev-console: angular.element('#main_view').scope() -->
+
+<div id="main_view">
+  <div class="jumbotron">
+    <div class="row">
+      <h1>Go out and do something!</h1>
+
+      <div ng-include src="'views/main/_form.html'"></div>
+    </div>
+  </div>
+
+  <div ng-include src="'views/main/_list.html'"></div>
+</div>
