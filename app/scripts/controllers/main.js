@@ -13,6 +13,14 @@ angular.module('todoApp')
           focusTodoEntry: true
         };
         $scope.localFunctions = {};
+        $scope.selectionData = {
+          degreesOfUrgency: [
+            {id: 0, title: 'none', class: 'default'},
+            {id: 1, title: 'low', class: 'success'},
+            {id: 2, title: 'medium', class: 'info'},
+            {id: 3, title: 'urgent', class: 'danger'}
+          ]
+        };
 
         /**
          * FUNCTIONS
@@ -23,6 +31,14 @@ angular.module('todoApp')
           })
         };
 
+        $scope.localFunctions.resetTodoEntry = function() {
+          $scope.localData.newEntry = {
+            urgency: 0
+          };
+          $scope.localData.focusTodoEntry = true;
+
+        };
+
         $scope.localFunctions.saveTodoEntry = function(todoEntry) {
           TodoEntry.save(todoEntry).then(function(entries) {
             $scope.localData.todoEntries = entries;
@@ -30,8 +46,7 @@ angular.module('todoApp')
           },function(error) {
             toastr.error(error,"error");
           }).finally(function() {
-            $scope.localData.newEntry = {};
-            $scope.localData.focusTodoEntry = true;
+            $scope.localFunctions.resetTodoEntry();
           });
         };
 
@@ -55,12 +70,12 @@ angular.module('todoApp')
         };
 
         $scope.localFunctions.cancelTodoEntry = function() {
-          $scope.localData.newEntry = {};
-          $scope.localData.focusTodoEntry = true;
+          $scope.localFunctions.resetTodoEntry();
         };
 
         /**
          * INITIALIZATION
          **/
-         $scope.localFunctions.loadTodoList();
+        $scope.localFunctions.loadTodoList();
+        $scope.localFunctions.resetTodoEntry();
       }]);

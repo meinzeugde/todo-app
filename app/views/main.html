@@ -14,43 +14,52 @@
                  has-focus="localData.focusTodoEntry">
         </div>
 
-        <div class="well" ng-show="localData.newEntry.description | isNotEmpty">
+        <div class="alert"
+             ng-class="'alert-'+selectionData.degreesOfUrgency[localData.newEntry.urgency].class"
+             ng-show="localData.newEntry.description || localData.newEntry.id">
           <div class="row">
             <div class="form-group">
               <label class="sr-only" for="todo_date">date</label>
-              <input type="text" class="form-control col-sm-3" id="todo_date"
+              <input type="text" class="form-control" id="todo_date"
                      placeholder="specify when"
                      ng-model="localData.newEntry.date">
             </div>
             <div class="form-group">
               <label class="sr-only" for="todo_location">location</label>
-              <input type="text" class="form-control col-sm-3" id="todo_location"
+              <input type="text" class="form-control" id="todo_location"
                      placeholder="specify where"
                      ng-model="localData.newEntry.location">
             </div>
             <div class="form-group">
               <label class="sr-only" for="todo_urgency">urgency</label>
-              <input type="text" class="form-control col-sm-3" id="todo_urgency"
-                     placeholder="specify urgency"
-                     ng-model="localData.newEntry.urgency">
+              <select class="form-control" id="todo_urgency"
+                      ng-options="degreeOfUrgency.id as degreeOfUrgency.title for degreeOfUrgency in selectionData.degreesOfUrgency"
+                      ng-model="localData.newEntry.urgency" />
             </div>
           </div>
         </div>
 
         <button type="submit" class="btn btn-default"
-                ng-click="localFunctions.saveTodoEntry(localData.newEntry)">Submit</button>
+                ng-disabled="!localData.newEntry.description"
+                ng-click="localFunctions.saveTodoEntry(localData.newEntry)">
+          Submit
+        </button>
         <button type="submit" class="btn btn-default" ng-if="localData.newEntry.id"
-                ng-click="localFunctions.cancelTodoEntry(localData.newEntry)">Cancel</button>
+                ng-click="localFunctions.cancelTodoEntry(localData.newEntry)">
+          Cancel
+        </button>
       </form>
     </div>
   </div>
 
   <div>
-    <ul>
-      <li ng-repeat="entry in localData.todoEntries">
-        {{entry.description}}
-        <i class="glyphicon glyphicon-edit" ng-click="localFunctions.editTodoEntry(entry)"></i>
-        <i class="glyphicon glyphicon-remove" ng-click="localFunctions.removeTodoEntry(entry)"></i>
+    <ul class="list-group">
+      <li class="list-group-item todo-entry"
+          ng-class="'list-group-item-'+selectionData.degreesOfUrgency[entry.urgency].class"
+          ng-repeat="entry in localData.todoEntries">
+        <input class="checkbox checkbox-inline" type="checkbox" ng-model="entry.isComplete" ng-click="localFunctions.saveTodoEntry(entry)" />
+        <span ng-click="localFunctions.editTodoEntry(entry)">{{entry.description}}</span>
+        <i class="glyphicon glyphicon-remove remove-entry" ng-click="localFunctions.removeTodoEntry(entry)"></i>
       </li>
     </ul>
   </div>
